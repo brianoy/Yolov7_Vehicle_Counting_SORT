@@ -119,7 +119,11 @@ class KalmanBoxTracker(object):
         CY = (bbox[1]+bbox[3])//2
         self.centroidarr.append((CX,CY))
         self.bbox_history.append(bbox)
-    
+        if len(self.centroidarr) > 15:
+            self.centroidarr.pop(0)
+        if len(self.bbox_history) > 15:
+            self.bbox_history.pop(0)
+
     def predict(self):
         """
         Advances the state vector and returns the predicted bounding box estimate
